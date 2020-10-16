@@ -5,23 +5,21 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"regexp"
+	"strings"
 )
 
 func countLines(r io.Reader) (int, int, int) {
 	lineScanner := bufio.NewScanner(r)
-	var lineCount, wordCount, charCount int
-	re := regexp.MustCompile(`[\S]+`)
+	var lineCount, wCount, charCount int
 
 	for lineScanner.Scan() {
 		lineCount++
 		lineText := lineScanner.Text()
-		wordCount += len(re.FindAllString(lineText, -1))
-		//fmt.Println(len(strings.Split(lineText, " ")))
-		//wordCount +=
+		fmt.Printf("%#v\n", strings.Fields(lineText))
+		wCount += len(strings.Fields(lineText))
 		charCount += len(lineText)
 	}
-	return lineCount, wordCount, charCount
+	return lineCount, wCount, charCount
 }
 
 func main() { //My WordCat
